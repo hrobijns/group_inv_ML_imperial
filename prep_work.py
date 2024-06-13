@@ -24,9 +24,6 @@ WP4s_raw = requests.get(url_WP4s) #opens the file
 WP4s_list = ast.literal_eval(WP4s_raw.text) #converts from string to list
 WP4s = np.array(WP4s_list) #converts from list to NumPy array
 
-print("shape of WP4s: " + str(WP4s.shape))
-print("shape of WP4_Hodges: " + str(WP4_Hodges.shape))
-
 #Define and train neural network:
 
 X = WP4s
