@@ -8,5 +8,6 @@ Summer project supervised by Daniel Platt (Imperial College, London, maths depar
 
 ### Pre-project work:
 prep_work.ipynb:
-- defined and trained a simple neural network using TensorFlow (Keras)
+- defined and trained a simple classification neural network, using data on weights which create wp4 spaces which admit CY3 hypersurfaces and their respective hodge numbers [(original repository)](https://github.com/TomasSilva/MLcCY7).
+- used TensorFlow (Keras) 
 - researched/experimented with how to improve the validation accuracy
