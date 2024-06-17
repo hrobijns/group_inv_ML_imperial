@@ -6,31 +6,22 @@ import ast
 import tensorflow as tf
 from tensorflow.keras.callbacks import EarlyStopping
 from sklearn.model_selection import train_test_split
+import urllib.request
 
-#Import and process the data into numpy arrays:
-
-url_WP4s = 'https://raw.githubusercontent.com/TomasSilva/MLcCY7/main/Data/WP4s.txt'
-url_WP4_Hodges = 'https://raw.githubusercontent.com/TomasSilva/MLcCY7/main/Data/WP4_Hodges.txt'
-
-#dataset 1:
-WP4_Hodges_raw = requests.get(url_WP4_Hodges) #opens the file
-
-WP4_Hodges_list = ast.literal_eval(WP4_Hodges_raw.text) #converts from string to list
-WP4_Hodges = np.array(WP4_Hodges_list) #converts from list to NumPy array
-
-#dataset 2:
-WP4s_raw = requests.get(url_WP4s) #opens the file
-
-WP4s_list = ast.literal_eval(WP4s_raw.text) #converts from string to list
-WP4s = np.array(WP4s_list) #converts from list to NumPy array
-
-#Define and train neural network:
-
-X = WP4s
-y = WP4_Hodges
-X_train, X_test, y_train, y_test = train_test_split(WP4s, y, test_size=0.2) #split data into training and testing
-X_train, X_test = tf.keras.utils.normalize(X_train, axis=1), tf.keras.utils.normalize(X_test, axis=1) #normalise
-
+def data_wrangle(data_string):
+    file_path = f'{data_string}.txt'
+    file_url = f'https://raw.githubusercontent.com/TomasSilva/MLcCY7/main/Data/{data_string}.txt'
+    try:
+        with open(file_path, 'r') as file:
+            data_raw = file.read()
+    except FileNotFoundError as e:
+        urllib.request.urlretrieve(file_url, file_path)
+        with open(file_path, 'r') as file:
+            data_raw = file.read()
+    data_list = ast.literal_eval(data_raw) #converts from string to list
+    data_array = np.array(data_list) #converts from list to NumPy array
+    return data_array
+    
 def get_network():
     inp = tf.keras.layers.Input(shape=(5,))
     prep = tf.keras.layers.Flatten()(inp)
@@ -58,6 +49,9 @@ def train_network(X_train, y_train, X_test, y_test):
     return history
 
 if __name__ == '__main__':
-    model = get_network()    
-    print(model.summary()) #print an overview of the neural network created
-    history = train_network(X_train, y_train, X_test, y_test) #train network on chosen data
+    
+    #Define and train neural network:
+    X = data_wrangle('WP4s')
+    y = data_wrangle('WP4_Hodges')
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.5) #split data into training and testing
+    X_train, X_test = tf.keras.utils.normalize(X_train, axis=1), tf.keras.utils.normalize(X_test, axis=1) #normalise
