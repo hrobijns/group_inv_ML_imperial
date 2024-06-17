@@ -8,7 +8,9 @@ from tensorflow.keras.callbacks import EarlyStopping
 from sklearn.model_selection import train_test_split
 import urllib.request
 
+
 def data_wrangle(data_string):
+#loads in and cleans up the data used for the neural network
     file_path = f'{data_string}.txt'
     file_url = f'https://raw.githubusercontent.com/TomasSilva/MLcCY7/main/Data/{data_string}.txt'
     try:
@@ -23,6 +25,7 @@ def data_wrangle(data_string):
     return data_array
     
 def get_network():
+#define the neural network
     inp = tf.keras.layers.Input(shape=(5,))
     prep = tf.keras.layers.Flatten()(inp)
     h1 = tf.keras.layers.Dense(1000, activation=tf.nn.relu)(prep)
@@ -38,6 +41,7 @@ def get_network():
     return model
 
 def train_network(X_train, y_train, X_test, y_test):
+#train the network
     model = get_network()
     early_stopping = EarlyStopping(monitor='val_loss', patience=3)
     history = model.fit(
@@ -49,8 +53,7 @@ def train_network(X_train, y_train, X_test, y_test):
     return history
 
 if __name__ == '__main__':
-    
-    #Define and train neural network:
+#run the program
     X = data_wrangle('WP4s')
     y = data_wrangle('WP4_Hodges')
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.5) #split data into training and testing
