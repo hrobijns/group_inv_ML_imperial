@@ -77,7 +77,7 @@ if __name__ == '__main__':
     print(get_network().summary()) #print an overview of the neural network created
     model, history = train_network(X_train, y_train, X_test, y_test) #train network on chosen data
     print('Accuracy as defined in the paper: ')
-    print(daattavya_accuracy(X, y, model)*100 + '%')
+    print(str(round(daattavya_accuracy(X, y, model)*100, 1)) + '%')
     
 
 
