@@ -11,21 +11,7 @@ import urllib.request
 ################################################################################
 #importing and wrangling data
 
-def data_wrangle_CY(data_string):
-    file_path = f'{data_string}.txt'
-    file_url = f'https://raw.githubusercontent.com/TomasSilva/MLcCY7/main/Data/{data_string}.txt'
-    try:
-        with open(file_path, 'r') as file:
-            data_raw = file.read()
-    except FileNotFoundError as e:
-        urllib.request.urlretrieve(file_url, file_path)
-        with open(file_path, 'r') as file:
-            data_raw = file.read()
-    data_list = ast.literal_eval(data_raw) #converts from string to list
-    data_array = np.array(data_list) #converts from list to NumPy array
-    return data_array
-
-def data_wrangle_sasakian():
+def data_wrangle():
     Sweights, SHodge = [], []
     try:
         with open('Topological_Data.txt','r') as file:
@@ -71,17 +57,33 @@ def train_network(X_train, y_train, X_test, y_test):
         validation_data=(X_test, y_test),
         callbacks=[early_stopping]
     )
-    return history
+    return model, history
 
 ################################################################################
-#run program: this example trains on the CY numbers, but using data_wrangle_sasakian() 
-#we can also train on the saskain numbers, as the paper does. 
+#defining accuracy as in the paper
+
+def daattavya_accuracy(weights, hodge_numbers, model):
+    bound = 0.05*(np.max(hodge_numbers)-np.min(hodge_numbers)) #define the bound as done in Daattavya's paper
+    weights, hodge_numbers = np.array(weights), np.array(hodge_numbers) #turn into numpy arrays for ease
+    random_indices = np.random.choice(np.array(weights).shape[0], 1000, replace=False) #make a selection as to not work with all the data
+    random_selection = weights[random_indices] 
+    predictions = model.predict(random_selection)
+    return np.mean(np.where(np.absolute(np.array(predictions)-hodge_numbers[random_indices]) < bound,1,0)) #use definition of accuracy as in paper
+
+################################################################################
+#running the program: 
 
 if __name__ == '__main__':
-    X = data_wrangle('WP4s')
-    y = data_wrangle('WP4_Hodges')
+    #training on the sasakain hodge numbers, as in the paper
+    X,y = data_wrangle()
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.5) #split data into training and testing
+    print(get_network().summary()) #print an overview of the neural network created
+    model, history = train_network(X_train, y_train, X_test, y_test) #train network on chosen data
+    print('Accuracy as defined in the paper: ')
+    print(daattavya_accuracy(X, y, model)*100 + '%')
+    
 
-    model = get_network()    
-    print(model.summary()) #print an overview of the neural network created
-    history = train_network(X_train, y_train, X_test, y_test) #train network on chosen data
+
+
+
+
