@@ -33,11 +33,8 @@ def get_network():
     inp = tf.keras.layers.Input(shape=(5,))
     prep = tf.keras.layers.Flatten()(inp)
     h1 = tf.keras.layers.Dense(16, activation='relu')(prep)
-    #h1_drop = tf.keras.layers.Dropout(0.2)(h1)  # Adding dropout after h1
     h2 = tf.keras.layers.Dense(32, activation='relu')(h1)
-    #h2_drop = tf.keras.layers.Dropout(0.2)(h2)  # Adding dropout after h2
     h3 = tf.keras.layers.Dense(16, activation='relu')(h2)
-    #h3_drop = tf.keras.layers.Dropout(0.2)(h3)  # Adding dropout after h3
     out = tf.keras.layers.Dense(2, activation='linear')(h3)
 
     model = tf.keras.models.Model(inputs=inp, outputs=out)
