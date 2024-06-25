@@ -4,8 +4,11 @@ import requests
 import numpy as np
 import ast
 import tensorflow as tf
+from tensorflow.keras.layers import Dropout
 from tensorflow.keras.callbacks import EarlyStopping
 from sklearn.model_selection import train_test_split
+from tensorflow.keras import regularizers
+from keras.regularizers import l2
 import urllib.request
 
 ################################################################################
@@ -45,14 +48,14 @@ def data_wrangle_sasakian():
 
 def get_network():
     inp = tf.keras.layers.Input(shape=(5,))
-    prep = tf.keras.layers.Flatten()(inp)
-    h1 = tf.keras.layers.Dense(16, activation='relu')(prep)
-    #h1_drop = tf.keras.layers.Dropout(0.2)(h1)  # Adding dropout after h1
-    h2 = tf.keras.layers.Dense(32, activation='relu')(h1)
-    #h2_drop = tf.keras.layers.Dropout(0.2)(h2)  # Adding dropout after h2
-    h3 = tf.keras.layers.Dense(16, activation='relu')(h2)
-    #h3_drop = tf.keras.layers.Dropout(0.2)(h3)  # Adding dropout after h3
-    out = tf.keras.layers.Dense(2, activation='linear')(h3)
+    prep = tf.keras.layers.Reshape((5,))(inp)
+    h1 = tf.keras.layers.Dense(16, activation='relu',kernel_regularizer=regularizers.l2(0.01), bias_regularizer=regularizers.l2(0.01))(prep)
+    h1_drop = tf.keras.layers.Dropout(0.2)(h1)  # Adding dropout after h1
+    h2 = tf.keras.layers.Dense(32, activation='relu',kernel_regularizer=regularizers.l2(0.01), bias_regularizer=regularizers.l2(0.01))(h1)
+    h2_drop = tf.keras.layers.Dropout(0.2)(h2)  # Adding dropout after h2
+    h3 = tf.keras.layers.Dense(16, activation='relu',kernel_regularizer=regularizers.l2(0.01), bias_regularizer=regularizers.l2(0.01))(h2)
+    h3_drop = tf.keras.layers.Dropout(0.2)(h3)  # Adding dropout after h3
+    out = tf.keras.layers.Dense(2, activation='linear',kernel_regularizer=regularizers.l2(0.01), bias_regularizer=regularizers.l2(0.01))(h3)
 
     model = tf.keras.models.Model(inputs=inp, outputs=out)
     model.compile(
