@@ -11,7 +11,7 @@ import urllib.request
 ################################################################################
 #importing and wrangling data
 
-def data_wrangle(data_string):
+def data_wrangle_CY(data_string):
     file_path = f'{data_string}.txt'
     file_url = f'https://raw.githubusercontent.com/TomasSilva/MLcCY7/main/Data/{data_string}.txt'
     try:
@@ -25,6 +25,20 @@ def data_wrangle(data_string):
     data_array = np.array(data_list) #converts from list to NumPy array
     return data_array
 
+def data_wrangle_sasakian(data_string):
+    Sweights, SHodge = [], []
+    try:
+        with open('Topological_Data.txt','r') as file:
+            for idx, line in enumerate(file.readlines()[1:]):
+                if idx%6 == 0: Sweights.append(eval(line))
+                if idx%6 == 2: SHodge.append(eval(line))
+    except FileNotFoundError as e:
+        urllib.request.urlretrieve('https://raw.githubusercontent.com/TomasSilva/MLcCY7/main/Data/Topological_Data.txt', 'Topological_Data.txt')
+        with open('Topological_Data.txt','r') as file:
+            for idx, line in enumerate(file.readlines()[1:]):
+                if idx%6 == 0: Sweights.append(eval(line))
+                if idx%6 == 2: SHodge.append(eval(line))
+    return Sweights, SHodge
 
 ################################################################################
 #defining and training NN
@@ -57,7 +71,7 @@ def train_network(X_train, y_train, X_test, y_test):
     return history
 
 ################################################################################
-#run program
+#run program: this example trains on the CY numbers, but using data_wrangle_sasakian() we can also train on the saskain numbers, as the paper does. 
 
 if __name__ == '__main__':
     X = data_wrangle('WP4s')
