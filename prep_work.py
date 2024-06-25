@@ -32,9 +32,10 @@ def data_wrangle(data_string):
 def get_network():
     inp = tf.keras.layers.Input(shape=(5,))
     prep = tf.keras.layers.Flatten()(inp)
-    h1 = tf.keras.layers.Dense(1000, activation=tf.nn.relu)(prep)
-    h2 = tf.keras.layers.Dense(100, activation=tf.nn.relu)(h1)
-    out = tf.keras.layers.Dense(2, activation=tf.nn.relu)(h2)
+    h1 = tf.keras.layers.Dense(16, activation='relu')(prep)
+    h2 = tf.keras.layers.Dense(32, activation='relu')(h1)
+    h3 = tf.keras.layers.Dense(16, activation='relu')(h2)
+    out = tf.keras.layers.Dense(2, activation='linear')(h3)
 
     model = tf.keras.models.Model(inputs=inp, outputs=out)
     model.compile(
