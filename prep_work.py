@@ -71,7 +71,8 @@ def train_network(X_train, y_train, X_test, y_test):
     return history
 
 ################################################################################
-#run program: this example trains on the CY numbers, but using data_wrangle_sasakian() we can also train on the saskain numbers, as the paper does. 
+#run program: this example trains on the CY numbers, but using data_wrangle_sasakian() 
+#we can also train on the saskain numbers, as the paper does. 
 
 if __name__ == '__main__':
     X = data_wrangle('WP4s')
