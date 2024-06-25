@@ -62,7 +62,6 @@ if __name__ == '__main__':
     X = data_wrangle('WP4s')
     y = data_wrangle('WP4_Hodges')
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.5) #split data into training and testing
-    X_train, X_test = tf.keras.utils.normalize(X_train, axis=1), tf.keras.utils.normalize(X_test, axis=1) #normalise
 
     model = get_network()    
     print(model.summary()) #print an overview of the neural network created
