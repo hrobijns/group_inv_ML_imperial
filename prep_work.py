@@ -25,7 +25,7 @@ def data_wrangle_CY(data_string):
     data_array = np.array(data_list) #converts from list to NumPy array
     return data_array
 
-def data_wrangle_sasakian(data_string):
+def data_wrangle_sasakian():
     Sweights, SHodge = [], []
     try:
         with open('Topological_Data.txt','r') as file:
