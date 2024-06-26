@@ -21,33 +21,49 @@ with open('/content/Topological_Data.txt','r') as file:
 Sweights = np.array(Sweights)
 SHodge = np.array(SHodge)
 
-# Define the deep sets model
-def get_deep_sets_model(input_shape):
-    input_data = Input(shape=input_shape)
-    x = Dense(16, activation='relu')(input_data)
+def deep_sets_model(input_shape):
+    input_vec = Input(shape=input_shape)
+    x = Dense(16, activation='relu')(input_vec)
     x = Dense(32, activation='relu')(x)
     x = Dense(16, activation='relu')(x)
-
-    adder = Lambda(lambda x: tf.keras.backend.sum(x, axis=1), output_shape=(lambda shape: (shape[0], shape[2])))
-    x = adder(x)
-    output = Dense(2, activation='sigmoid')(x)
-
-    model = Model(inputs=input_data, outputs=output)
-    model.compile(optimizer=Adam(lr=1e-3, epsilon=1e-3), loss='mean_squared_error', metrics=['accuracy'])
-
+    latent_rep = Lambda(lambda x: tf.reduce_sum(x, axis=1))(x)  # Sum over the latent space
+    output_vec = Dense(1, activation='sigmoid')(latent_rep)  # Assuming binary classification
+    model = Model(input_vec, output_vec)
     return model
 
-# Assuming Sweights.shape[1] represents the input shape
-model = get_deep_sets_model(input_shape=(5,))
 
-# Visualize the model architecture (optional)
-SVG(model_to_dot(model, show_shapes=True).create(prog='dot', format='svg'))
+def get_network():
+    inp = tf.keras.layers.Input(shape=(5,))
+    prep = tf.keras.layers.Reshape((5,))(inp)
+    h1 = tf.keras.layers.Dense(16, activation='relu')(prep)
+    h2 = tf.keras.layers.Dense(32, activation='relu')(h1)
+    h3 = tf.keras.layers.Dense(16, activation='relu')(h2)
+    out = tf.keras.layers.Dense(2, activation='linear')(h3)
 
-# Split data into training and validation sets
-X_train, X_val, y_train, y_val = train_test_split(Sweights, SHodge, test_size=0.2, random_state=42)
+    model = tf.keras.models.Model(inputs=inp, outputs=out)
+    model.compile(
+        loss='mean_squared_error',
+        optimizer=tf.keras.optimizers.Adam(0.001),
+        metrics=['accuracy'],
+    )
+    return model
 
-# Train the model
-reduce_lr = ReduceLROnPlateau(monitor='val_loss', factor=0.5, verbose=1, patience=20, min_lr=0.000001)
+def train_network(X_train, y_train, X_test, y_test):
+    model = get_network()
+    early_stopping = EarlyStopping(monitor='val_loss', patience=3)
+    history = model.fit(
+        X_train, y_train,
+        epochs=1000,
+        validation_data=(X_test, y_test),
+        callbacks=[early_stopping]
+    )
+    return history
 
-model.fit(X_train, y_train, epochs=50, batch_size=32,
-          validation_data=(X_val, y_val), callbacks=[reduce_lr])
+
+if __name__ == '__main__':
+    # Split the data into training and testing sets
+    X_train, X_test, y_train, y_test = train_test_split(Sweights, SHodge, test_size=0.5)
+
+    # Train and evaluate the model
+    test_accuracy = train_network(X_train, y_train, X_test, y_test)
+    print(f'Test Accuracy of Deep Sets-like model: {test_accuracy}')
