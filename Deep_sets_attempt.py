@@ -4,9 +4,9 @@ import tensorflow as tf
 from tensorflow.keras.layers import Input, Dense, Lambda
 from tensorflow.keras.models import Model
 from tensorflow.keras.optimizers import Adam
-from tensorflow.keras.callbacks import ReduceLROnPlateau
-from sklearn.model_selection import train_test_split
+from tensorflow.keras.callbacks import EarlyStopping, ReduceLROnPlateau
 from tensorflow.keras.utils import model_to_dot
+from sklearn.model_selection import train_test_split
 from IPython.display import SVG
 
 # Load your data
@@ -19,7 +19,7 @@ with open('/content/Topological_Data.txt','r') as file:
             SHodge.append(eval(line))
 
 Sweights = np.array(Sweights)
-SHodge = np.array(SHodge)
+SHodge = np.array(SHodge)[:, 1:2]  
 
 # Define the deep sets model
 def get_deep_sets_model(input_shape):
@@ -28,25 +28,28 @@ def get_deep_sets_model(input_shape):
     x = Dense(32, activation='relu')(x)
     x = Dense(16, activation='relu')(x)
 
-    adder = Lambda(lambda x: tf.keras.backend.sum(x, axis=1), output_shape=(lambda shape: (shape[0], shape[2])))
+    adder = Lambda(lambda x: tf.keras.backend.sum(x, axis=1, keepdims=True), output_shape=(1,))
     x = adder(x)
-    output = Dense(2, activation='sigmoid')(x)
+    output = Dense(1)(x)  
 
     model = Model(inputs=input_data, outputs=output)
     model.compile(optimizer=Adam(lr=1e-3, epsilon=1e-3), loss='mean_squared_error', metrics=['accuracy'])
 
     return model
 
-model = get_deep_sets_model(input_shape=(5,))
+def train_network(X_train, y_train, X_test, y_test):
+    model = get_network()
+    early_stopping = EarlyStopping(monitor='val_loss', patience=3)
+    history = model.fit(
+        X_train, y_train,
+        epochs=999999,
+        validation_data=(X_test, y_test),
+        callbacks=[early_stopping]
+    )
+    return model, history
 
-# Visualize the model architecture
-SVG(model_to_dot(model, show_shapes=True).create(prog='dot', format='svg'))
-
-# Split data into training and validation sets
-X_train, X_val, y_train, y_val = train_test_split(Sweights, SHodge, test_size=0.2, random_state=42)
-
-# Train the model
-reduce_lr = ReduceLROnPlateau(monitor='val_loss', factor=0.5, verbose=1, patience=20, min_lr=0.000001)
-
-model.fit(X_train, y_train, epochs=50, batch_size=32,
-          validation_data=(X_val, y_val), callbacks=[reduce_lr])
+if __name__ == '__main__':
+    model = get_deep_sets_model(input_shape=(5,))
+    print(model.summary())
+    X_train, X_test, y_train, y_test = train_test_split(Sweights, SHodge, test_size=0.5)
+    print(f' {train_network(X_train, y_train, X_test, y_test)}')
