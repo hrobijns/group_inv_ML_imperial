@@ -1,5 +1,3 @@
-#Original file is located at: https://colab.research.google.com/drive/1AUofaupklsbrcfQlN5HKs8n2Rvwaq9wF
-
 import requests
 import numpy as np
 import ast
@@ -24,6 +22,7 @@ def data_wrangle_S():
             for idx, line in enumerate(file.readlines()[1:]):
                 if idx%6 == 0: Sweights.append(eval(line))
                 if idx%6 == 2: SHodge.append(eval(line))
+    Sweights, SHodge = np.array(Sweights), np.array(SHodge)[:, 1:2]
     return Sweights, SHodge
 
 ################################################################################
@@ -35,7 +34,7 @@ def get_network():
     h1 = tf.keras.layers.Dense(16, activation='relu')(prep)
     h2 = tf.keras.layers.Dense(32, activation='relu')(h1)
     h3 = tf.keras.layers.Dense(16, activation='relu')(h2)
-    out = tf.keras.layers.Dense(2, activation='linear')(h3)
+    out = tf.keras.layers.Dense(1, activation='linear')(h3)
 
     model = tf.keras.models.Model(inputs=inp, outputs=out)
     model.compile(
@@ -61,7 +60,6 @@ def train_network(X_train, y_train, X_test, y_test):
 
 def daattavya_accuracy(weights, hodge_numbers, model):
     bound = 0.05*(np.max(hodge_numbers)-np.min(hodge_numbers)) #define the bound as done in Daattavya's paper
-    weights, hodge_numbers = np.array(weights), np.array(hodge_numbers) #turn into numpy arrays for ease
     random_indices = np.random.choice(np.array(weights).shape[0], 1000, replace=False) #make a selection as to not work with all the data
     random_selection = weights[random_indices] 
     predictions = model.predict(random_selection)
