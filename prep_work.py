@@ -11,7 +11,7 @@ import urllib.request
 ################################################################################
 #importing and wrangling data
 
-def data_wrangle():
+def data_wrangle_S():
     Sweights, SHodge = [], []
     try:
         with open('Topological_Data.txt','r') as file:
@@ -72,7 +72,7 @@ def daattavya_accuracy(weights, hodge_numbers, model):
 
 if __name__ == '__main__':
     #training on the sasakain hodge numbers, as in the paper
-    X,y = data_wrangle()
+    X,y = data_wrangle_S()
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.5) #split data into training and testing
     print(get_network().summary()) #print an overview of the neural network created
     model, history = train_network(X_train, y_train, X_test, y_test) #train network on chosen data
