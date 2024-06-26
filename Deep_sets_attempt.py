@@ -9,17 +9,22 @@ from tensorflow.keras.utils import model_to_dot
 from sklearn.model_selection import train_test_split
 from IPython.display import SVG
 
-# Load your data
-Sweights, SHodge = [], []
-with open('/content/Topological_Data.txt','r') as file:
-    for idx, line in enumerate(file.readlines()[1:]):
-        if idx % 6 == 0: 
-            Sweights.append(eval(line))
-        if idx % 6 == 2: 
-            SHodge.append(eval(line))
+def data_wrangle_S():
+    Sweights, SHodge = [], []
+    try:
+        with open('Topological_Data.txt','r') as file:
+            for idx, line in enumerate(file.readlines()[1:]):
+                if idx%6 == 0: Sweights.append(eval(line))
+                if idx%6 == 2: SHodge.append(eval(line))
+    except FileNotFoundError as e:
+        urllib.request.urlretrieve('https://raw.githubusercontent.com/TomasSilva/MLcCY7/main/Data/Topological_Data.txt', 'Topological_Data.txt')
+        with open('Topological_Data.txt','r') as file:
+            for idx, line in enumerate(file.readlines()[1:]):
+                if idx%6 == 0: Sweights.append(eval(line))
+                if idx%6 == 2: SHodge.append(eval(line))
+    Sweights, SHodge = np.array(Sweights), np.array(SHodge)[:, 1:2]
+    return Sweights, SHodge
 
-Sweights = np.array(Sweights)
-SHodge = np.array(SHodge)[:, 1:2]  
 
 # Define the deep sets model
 def get_deep_sets_model(input_shape):
