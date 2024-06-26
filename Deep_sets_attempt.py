@@ -37,10 +37,9 @@ def get_deep_sets_model(input_shape):
 
     return model
 
-# Assuming Sweights.shape[1] represents the input shape
 model = get_deep_sets_model(input_shape=(5,))
 
-# Visualize the model architecture (optional)
+# Visualize the model architecture
 SVG(model_to_dot(model, show_shapes=True).create(prog='dot', format='svg'))
 
 # Split data into training and validation sets
