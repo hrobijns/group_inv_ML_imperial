@@ -84,6 +84,6 @@ if __name__ == '__main__':
     model, history = train_network(X_train, y_train, X_test, y_test) #train network on chosen data
 
     permuted_X_test = np.apply_along_axis(permute_vector, 1, X_test)
-    print('Accuracy on ordered weights: ' str(round(daattavya_accuracy(y_train, X_test, y_test, model)*100, 1)) + '%')
-    print('Accuracy on randomly permuted weights: 'str(round(daattavya_accuracy(y_train, permuted_X_test, y_test, model)*100, 1)) + '%')
+    print('Accuracy on ordered weights: ' + str(round(daattavya_accuracy(y_train, X_test, y_test, model)*100, 1)) + '%')
+    print('Accuracy on randomly permuted weights: ' + str(round(daattavya_accuracy(y_train, permuted_X_test, y_test, model)*100, 1)) + '%')
     #expect these two accuracies to be similar if the NN is group invariant
