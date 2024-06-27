@@ -23,9 +23,7 @@ Based on the same paper as the pre-project work [(1)](https://www.sciencedirect.
 
 ##### deep_sets.py:
 - an attempt to recreate [this paper (2)](https://arxiv.org/abs/1703.06114).
-- essentially adding a layer into the NN which simply sums the vector at that point, which can be shown to enforce invariance.
-- no significant change in accuracy observed.
-
+- incomplete: doesn't yet seem to be group invariant.
 
 
 ## References:
