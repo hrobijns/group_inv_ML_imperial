@@ -44,9 +44,9 @@ def get_network():
     )
     return model
 
-def train_network(X_train, y_train, X_test, y_test):
-    model = get_network()
-    early_stopping = EarlyStopping(monitor='val_loss', patience=3)
+def train_network(X_train, y_train, X_test, y_test, model):
+    print(model.summary()) #print an overview of the neural network created
+    early_stopping = EarlyStopping(monitor='val_loss', patience=7)
     history = model.fit(
         X_train, y_train,
         epochs=999999,
@@ -58,12 +58,10 @@ def train_network(X_train, y_train, X_test, y_test):
 ################################################################################
 #defining accuracy as in the paper
 
-def daattavya_accuracy(weights, hodge_numbers, model):
-    bound = 0.05*(np.max(hodge_numbers)-np.min(hodge_numbers)) #define the bound as done in Daattavya's paper
-    random_indices = np.random.choice(np.array(weights).shape[0], 1000, replace=False) #make a selection as to not work with all the data
-    random_selection = weights[random_indices] 
-    predictions = model.predict(random_selection)
-    return np.mean(np.where(np.absolute(np.array(predictions)-hodge_numbers[random_indices]) < bound,1,0)) #use definition of accuracy as in paper
+def daattavya_accuracy(training_outputs, test_inputs, test_outputs, model):
+    bound = 0.05*(np.max(training_outputs)-np.min(training_outputs)) #define the bound as done in Daattavya's paper
+    predictions = model.predict(test_inputs)
+    return np.mean(np.where(np.absolute(np.array(predictions)-test_outputs) < bound,1,0)) #use definition of accuracy as in paper
 
 ################################################################################
 #running the program: 
@@ -72,7 +70,6 @@ if __name__ == '__main__':
     #training on the sasakain hodge numbers, as in the paper
     X,y = data_wrangle_S()
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.5) #split data into training and testing
-    print(get_network().summary()) #print an overview of the neural network created
-    model, history = train_network(X_train, y_train, X_test, y_test) #train network on chosen data
+    model, history = train_network(X_train, y_train, X_test, y_test, get_network()) #train network on chosen data
     print('Accuracy as defined in the paper: ')
-    print(str(round(daattavya_accuracy(X, y, model)*100, 1)) + '%')
+    print(str(round(daattavya_accuracy(y_train, X_test, y_test, model)*100, 1)) + '%')
