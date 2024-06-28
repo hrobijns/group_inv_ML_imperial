@@ -76,9 +76,3 @@ if __name__ == '__main__':
     model, history = train_network(X_train, y_train, X_test, y_test) #train network on chosen data
     print('Accuracy as defined in the paper: ')
     print(str(round(daattavya_accuracy(X, y, model)*100, 1)) + '%')
-    
-
-
-
-
-
