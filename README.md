@@ -6,6 +6,8 @@ Summer project supervised by Daniel Platt (Imperial College, London, maths depar
 - TensorFlow
 
 ## Contents:
+##### requirements.txt:
+- text file containing required software to run files in this repository.
 
 ### Pre-project work:
 
