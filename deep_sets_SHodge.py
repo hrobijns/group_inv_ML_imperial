@@ -38,8 +38,8 @@ def get_deep_sets_network():
     def get_shared_parallel_model():
         input_element = tf.keras.layers.Input(shape=(1,))
         h_a = tf.keras.layers.Dense(32, activation='relu')(input_element)
-        h_b = tf.keras.layers.Dense(64, activation='relu')(h1)
-        output_element = tf.keras.layers.Dense(128, activation='relu')(h2)
+        h_b = tf.keras.layers.Dense(64, activation='relu')(h_a)
+        output_element = tf.keras.layers.Dense(128, activation='relu')(h_b)
         return tf.keras.models.Model(input_element, output_element)
     
     shared_model = get_shared_parallel_model()
