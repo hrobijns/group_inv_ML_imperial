@@ -1,7 +1,9 @@
 # import necessary libraries but also useful previously defined functions
 from CNI_learn import data_wrangle_CNI
-from CNI_learn import get_classifier
 from CNI_learn import classification_accuracy
+from deep_sets_SHodge import permute_vector
+from deep_sets_SHodge import permutation_invariance_confirmation
+from SHodge_learn import train_network
 
 import requests
 import numpy as np
@@ -60,4 +62,5 @@ if __name__ == '__main__':
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.5) # split data into training and testing
     model, history = train_network(X_train, y_train, X_test, y_test, get_deep_sets_classifier()) # train network on chosen data
     print('Accuracy: ' + str(round(accuracy(X_test, y_test, model)*100, 1)) + '%')
+    permutation_invariance_confirmation(model, X_test)
 
