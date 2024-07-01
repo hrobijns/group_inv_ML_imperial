@@ -24,9 +24,12 @@ Based on the same paper as the pre-project work [(1)](https://www.sciencedirect.
 - accuracy similarly low to the paper.
 
 ##### deep_sets.py:
-- an attempt to recreate [this paper (2)](https://arxiv.org/abs/1703.06114).
-- incomplete: doesn't yet seem to be group invariant.
+- an attempt to recreate [this paper (2)](https://arxiv.org/abs/1703.06114), and implement a NN which is independant to permutation of the input vectors.
+- essentially worked by training 5 NNs in parallel on all the individual elements in the input weight vectors, summing these outputs, and then further training.
+- group invariancy was achieved.
 
+##### stats_visualisation.py:
+- a script which performs t-tests and plots some graphs to visualise the difference between the different techniques, and see if the change in accuracies are statistically signficant.
 
 ## References:
 (1) [Aggarwal et al., 2023, *Machine learning Sasakian and G2 topology on contact Calabi-Yau 7-manifolds*](https://www.sciencedirect.com/science/article/pii/S0370269324000753?via%3Dihub) <br/>
