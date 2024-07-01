@@ -28,7 +28,7 @@ def data_wrangle_S():
 ################################################################################
 # defining and training NN
 
-def get_network():
+def get_network_S():
     inp = tf.keras.layers.Input(shape=(5,))
     prep = tf.keras.layers.Flatten()(inp)
     h1 = tf.keras.layers.Dense(16, activation='relu')(prep)
@@ -70,6 +70,6 @@ if __name__ == '__main__':
     # training on the sasakain hodge numbers, as in the paper
     X,y = data_wrangle_S()
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.5) # split data into training and testing
-    model, history = train_network(X_train, y_train, X_test, y_test, get_network()) # train network on chosen data
+    model, history = train_network(X_train, y_train, X_test, y_test, get_network_S()) # train network on chosen data
     print('Accuracy as defined in the paper: ')
     print(str(round(daattavya_accuracy(y_train, X_test, y_test, model)*100, 1)) + '%')
