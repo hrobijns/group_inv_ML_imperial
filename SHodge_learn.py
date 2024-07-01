@@ -7,7 +7,7 @@ from sklearn.model_selection import train_test_split
 import urllib.request
 
 ################################################################################
-#importing and wrangling data
+# importing and wrangling data
 
 def data_wrangle_S():
     Sweights, SHodge = [], []
@@ -26,7 +26,7 @@ def data_wrangle_S():
     return Sweights, SHodge
 
 ################################################################################
-#defining and training NN
+# defining and training NN
 
 def get_network():
     inp = tf.keras.layers.Input(shape=(5,))
@@ -45,7 +45,7 @@ def get_network():
     return model
 
 def train_network(X_train, y_train, X_test, y_test, model):
-    print(model.summary()) #print an overview of the neural network created
+    print(model.summary()) # print an overview of the neural network created
     early_stopping = EarlyStopping(monitor='val_loss', patience=7)
     history = model.fit(
         X_train, y_train,
@@ -56,20 +56,20 @@ def train_network(X_train, y_train, X_test, y_test, model):
     return model, history
 
 ################################################################################
-#defining accuracy as in the paper
+# defining accuracy as in the paper
 
 def daattavya_accuracy(training_outputs, test_inputs, test_outputs, model):
-    bound = 0.05*(np.max(training_outputs)-np.min(training_outputs)) #define the bound as done in Daattavya's paper
+    bound = 0.05*(np.max(training_outputs)-np.min(training_outputs)) # define the bound as done in Daattavya's paper
     predictions = model.predict(test_inputs)
-    return np.mean(np.where(np.absolute(np.array(predictions)-test_outputs) < bound,1,0)) #use definition of accuracy as in paper
+    return np.mean(np.where(np.absolute(np.array(predictions)-test_outputs) < bound,1,0)) # use definition of accuracy as in paper
 
 ################################################################################
-#running the program: 
+# running the program: 
 
 if __name__ == '__main__':
-    #training on the sasakain hodge numbers, as in the paper
+    # training on the sasakain hodge numbers, as in the paper
     X,y = data_wrangle_S()
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.5) #split data into training and testing
-    model, history = train_network(X_train, y_train, X_test, y_test, get_network()) #train network on chosen data
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.5) # split data into training and testing
+    model, history = train_network(X_train, y_train, X_test, y_test, get_network()) # train network on chosen data
     print('Accuracy as defined in the paper: ')
     print(str(round(daattavya_accuracy(y_train, X_test, y_test, model)*100, 1)) + '%')
