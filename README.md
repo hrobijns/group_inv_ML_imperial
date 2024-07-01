@@ -23,13 +23,18 @@ Based on the same paper as the pre-project work [(1)](https://www.sciencedirect.
 - implemented a classification NN to attempt to learn the CN invariants.
 - accuracy similarly low to the paper.
 
-##### deep_sets.py:
+##### deep_sets_SHodge.py:
 - an attempt to recreate [this paper (2)](https://arxiv.org/abs/1703.06114), and implement a NN which is independant to permutation of the input vectors.
 - essentially worked by training 5 NNs in parallel on all the individual elements in the input weight vectors, summing these outputs, and then further training.
 - group invariancy was achieved.
+- trained on Sasakian Hodge numbers
 
-##### stats_visualisation.py:
-- a script which performs t-tests and plots some graphs to visualise the difference between the different techniques, and see if the change in accuracies are statistically signficant, especially for the poorly predicted CN invariants.
+##### deep_sets_CNI.py:
+- group invariant NN turned into a classifier and applied to learning the CN invariant.
+- no statistically significant change in accuracy observed.
+
+### Project 2: Harmonic 1-forms on T<sup>3</sup>
+Does there exist a metric on the 3-dimensional torus T<sup>3</sup> such that every harmonic 1-form has a vanishing zero?
 
 ## References:
 (1) [Aggarwal et al., 2023, *Machine learning Sasakian and G2 topology on contact Calabi-Yau 7-manifolds*](https://www.sciencedirect.com/science/article/pii/S0370269324000753?via%3Dihub) <br/>
