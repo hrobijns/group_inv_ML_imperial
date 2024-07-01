@@ -1,3 +1,6 @@
+# import necessary libraries but also useful previously defined functions
+from SHodge_learn import train_network
+
 import requests
 import numpy as np
 import ast
@@ -7,7 +10,7 @@ from sklearn.model_selection import train_test_split
 import urllib.request
 
 ################################################################################
-#importing and wrangling data
+# importing and wrangling data
 
 def data_wrangle_CNI():
     weights, CNI = [], []
@@ -27,7 +30,7 @@ def data_wrangle_CNI():
     return weights, CNI
 
 ################################################################################
-#defining and training classification NN
+# defining a classification NN
 
 def get_classifier():
     inp = tf.keras.layers.Input(shape=(5,))
@@ -45,34 +48,21 @@ def get_classifier():
     )
     return model   
 
-def train_network(X_train, y_train, X_test, y_test):
-    model = get_classifier()
-    early_stopping = EarlyStopping(monitor='val_loss', patience=7)
-    history = model.fit(
-        X_train, y_train,
-        epochs=9999999,
-        validation_data=(X_test, y_test),
-        callbacks=[early_stopping]
-    )
-    return model, history
-
 ################################################################################
-#define accuracy
+# define accuracy
 
-def accuracy(test_inputs, test_outputs, model):
+def classification_accuracy(test_inputs, test_outputs, model):
     predictions = model.predict(test_inputs)
     predicted_classes = np.argmax(predictions, axis=1)
     return np.mean(np.where(np.array(predicted_classes) == test_outputs,1,0)) 
 
 ################################################################################
-#run program
+# run program
 
 if __name__ == '__main__':
     X,y = data_wrangle_CNI()
     y = (y-1)/2
     y = np.round(y).astype(int)
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.5) #split data into training and testing
-    print(get_classifier().summary()) #print an overview of the neural network created
-    model, history = train_network(X_train, y_train, X_test, y_test) #train network on chosen data
-    print('Accuracy: ')
-    print(str(round(accuracy(X_test, y_test, model)*100, 1)) + '%')
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.5) # split data into training and testing
+    model, history = train_network(X_train, y_train, X_test, y_test, get_classifier()) # train network on chosen data
+    print('Accuracy: ' + str(round(accuracy(X_test, y_test, model)*100, 1)) + '%')
