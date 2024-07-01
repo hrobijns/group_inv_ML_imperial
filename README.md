@@ -29,7 +29,7 @@ Based on the same paper as the pre-project work [(1)](https://www.sciencedirect.
 - group invariancy was achieved.
 
 ##### stats_visualisation.py:
-- a script which performs t-tests and plots some graphs to visualise the difference between the different techniques, and see if the change in accuracies are statistically signficant.
+- a script which performs t-tests and plots some graphs to visualise the difference between the different techniques, and see if the change in accuracies are statistically signficant, especially for the poorly predicted CN invariants.
 
 ## References:
 (1) [Aggarwal et al., 2023, *Machine learning Sasakian and G2 topology on contact Calabi-Yau 7-manifolds*](https://www.sciencedirect.com/science/article/pii/S0370269324000753?via%3Dihub) <br/>
