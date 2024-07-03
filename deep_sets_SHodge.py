@@ -19,14 +19,14 @@ def permute_vector(vector):
 
 def permutation_invariance_confirmation(model, test_inputs):
     permuted_test_inputs = np.apply_along_axis(permute_vector, 1, test_inputs) 
-    if np.all(np.abs(model.predict(permuted_test_inputs) - model.predict(test_inputs)) < 0.5):
+    if np.all(np.abs(model.predict(permuted_test_inputs) - model.predict(test_inputs)) < 0.5): # small tolerance to accomodate rounding differences.  
         print("Model is invariant to permutation of the input vectors.")
     else:
         print("Model is not invariant to permutation of the input vectors.")
 
 ################################################################################
-# deep sets architecture: essentially training individual NNs in parallel for
-# all the elements in parallel, then aggregating, then training further.
+# deep sets architecture: essentially training individual NNs in parallel for all the elements of the group
+# in parallel, then aggregating, then training further (as in the first part of section 3.1 of the paper).
 
 def get_deep_sets_network():
     inp = tf.keras.layers.Input(shape=(5,))
