@@ -19,7 +19,7 @@ def generate_boundary_points():
     # boundary points for u(x=0.5, t=0)=1
     x_boundary1 = np.full((1, 1), 0.5).astype(np.float32)
     t_boundary1 = np.zeros((1, 1)).astype(np.float32)
-    u_boundary1 = np.full((1, 1), 1.0).astype(np.float32)
+    u_boundary1 = np.full((1, 1), 2).astype(np.float32)
 
     # boundary points for u(x=1, t=0)=0
     x_boundary2 = np.full((1, 1), 1.0).astype(np.float32)
@@ -120,7 +120,7 @@ def plot_PINN_prediction(model, x_lim_lower, x_lim_higher, t_lim_lower, t_lim_hi
 
   #to-do change 
   ax.set_xlim(x_lim_lower, x_lim_higher)
-  ax.set_ylim(-5, 5)
+  ax.set_ylim(0, 5)
   
   # create the animation
   t_values = np.linspace(t_lim_lower, t_lim_higher, 400)
@@ -133,9 +133,8 @@ def plot_PINN_prediction(model, x_lim_lower, x_lim_higher, t_lim_lower, t_lim_hi
 ################################################################################
 # running the program:
 if __name__ == '__main__':
-  x_colocation_tf, t_colocation_tf = generate_colation_points(x_lim_lower=-5, x_lim_higher=5, t_lim_lower=0, t_lim_higher=5, number_points=1000)
+  x_colocation_tf, t_colocation_tf = generate_colation_points(x_lim_lower=0, x_lim_higher=1, t_lim_lower=0, t_lim_higher=30, number_points=1000)
   x_boundary_tf, t_boundary_tf, u_boundary_tf = generate_boundary_points()
   model = train_network(x_colocation_tf, t_colocation_tf, x_boundary_tf, t_boundary_tf, u_boundary_tf)
 
-  plot_PINN_prediction(model, x_lim_lower=-5, x_lim_higher=5, t_lim_lower=0, t_lim_higher=20)
-  
+  plot_PINN_prediction(model, x_lim_lower=0, x_lim_higher=1, t_lim_lower=0, t_lim_higher=50)
