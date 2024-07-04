@@ -32,7 +32,7 @@ Based on the same paper as the pre-project work [(1)](https://www.sciencedirect.
 - a re-implementation of a different part of the same [Deep Sets paper (2)](https://arxiv.org/abs/1703.06114), this time Theorem 2 (Section 2.2., page 2)
 - successfully created a permutation equivariant NN.
 
-#### deep_sets(b)_CNI.py:
+##### deep_sets(b)_CNI.py:
 - turned NN from deep_sets(b)_SHodge.py into a classifier to learn the CN invariants.
 
 ### Project 2: Harmonic 1-forms on T<sup>3</sup>
