@@ -29,7 +29,7 @@ Based on the same paper as the pre-project work [(1)](https://www.sciencedirect.
 - successfully created a permutation equivariant NN.
 
 ##### deep_sets(b)_SHodge.py:
-- a re-implementation of a different part of the same [Deep Sets paper (2), Deep Sets.](https://arxiv.org/abs/1703.06114), this time Theorem 2 (Section 2.2., page 2)
+- a re-implementation of a different part of the same [Deep Sets paper (2)](https://arxiv.org/abs/1703.06114), this time Theorem 2 (Section 2.2., page 2)
 - successfully created a permutation equivariant NN.
 
 #### deep_sets(b)_CNI.py:
