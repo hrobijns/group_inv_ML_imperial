@@ -73,9 +73,5 @@ if __name__ == '__main__':
     X,y = data_wrangle_S()
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.5) # split data into training and testing
     model, history = train_network(X_train, y_train, X_test, y_test, get_deep_sets_network()) # train network on chosen data
-
     print('Accuracy on ordered weights: ' + str(round(daattavya_accuracy(y_train, X_test, y_test, model)*100, 1)) + '%')
-    print('Accuracy on randomly permuted weights: ' + str(round(daattavya_accuracy(y_train, permuted_X_test, y_test, model)*100, 1)) + '%')
-    # expect these two accuracies to be similar if the NN is group invariant
-
     permutation_invariance_confirmation(model, X_test)
