@@ -26,8 +26,8 @@ def get_deep_sets_classifier():
     def get_shared_parallel_model():
         input_element = tf.keras.layers.Input(shape=(1,))
         h_a = tf.keras.layers.Dense(32, activation='relu')(input_element)
-        h_b = tf.keras.layers.Dense(64, activation='relu')(h1)
-        output_element = tf.keras.layers.Dense(128, activation='relu')(h2)
+        h_b = tf.keras.layers.Dense(64, activation='relu')(h_a)
+        output_element = tf.keras.layers.Dense(128, activation='relu')(h_b)
         return tf.keras.models.Model(input_element, output_element)
     
     shared_model = get_shared_parallel_model()
@@ -61,6 +61,6 @@ if __name__ == '__main__':
     y = np.round(y).astype(int)
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.5) # split data into training and testing
     model, history = train_network(X_train, y_train, X_test, y_test, get_deep_sets_classifier()) # train network on chosen data
-    print('Accuracy: ' + str(round(accuracy(X_test, y_test, model)*100, 1)) + '%')
+    print('Accuracy: ' + str(round(classification_accuracy(X_test, y_test, model)*100, 1)) + '%')
     permutation_invariance_confirmation(model, X_test)
 

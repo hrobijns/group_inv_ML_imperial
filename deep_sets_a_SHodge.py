@@ -16,43 +16,43 @@ import urllib.request
 # define architecture of NN according to the second-half of section 3.1 of the paper
 def equivariant_layer(inp, number_of_channels_in, number_of_channels_out):
     # introduce first parameter
-    out1 = layers.Conv1D(number_of_channels_out, 1, strides=1, padding='valid', use_bias=False, activation='relu')(inp)
+    out1 = tf.layers.Conv1D(number_of_channels_out, 1, strides=1, padding='valid', use_bias=False, activation='relu')(inp)
     
     # pooling function
-    out2 = layers.GlobalAveragePooling1D()(inp)
+    out2 = tf.layers.GlobalAveragePooling1D()(inp)
     
     # adjust shapes and introduce second parameter
     out2 = tf.expand_dims(out2, axis=1)
-    out2 = layers.Conv1D(number_of_channels_out, 1, strides=1, padding='valid', use_bias=True, activation='relu')(out2)
+    out2 = tf.layers.Conv1D(number_of_channels_out, 1, strides=1, padding='valid', use_bias=True, activation='relu')(out2)
     out2 = tf.tile(out2, [1, inp.shape[1], 1])
     
-    return layers.Add()([out1, out2])
+    return tf.layers.Add()([out1, out2])
 
 def get_deep_sets_network(pooling='sum'):
     number_of_channels = 100
-    inp = layers.Input(shape=(5, 1)) 
+    inp = tf.layers.Input(shape=(5, 1)) 
    
     # apply equivariant layers
     e1 = equivariant_layer(inp, 1, number_of_channels)
-    e1 = layers.Dropout(0.5)(e1)
+    e1 = tf.layers.Dropout(0.5)(e1)
   
     e2 = equivariant_layer(e1, number_of_channels, number_of_channels)
-    e2 = layers.Dropout(0.5)(e2)
+    e2 = tf.layers.Dropout(0.5)(e2)
     
     # pooling function
-    p1 = layers.GlobalAveragePooling1D()(e2)
+    p1 = tf.layers.GlobalAveragePooling1D()(e2)
 
     # further training
-    fc1 = layers.Dense(16, activation='relu')(p1)
-    fc2 = layers.Dense(32, activation='relu')(fc1)
-    fc3 = layers.Dense(16, activation='relu')(fc2)
+    fc1 = tf.layers.Dense(16, activation='relu')(p1)
+    fc2 = tf.layers.Dense(32, activation='relu')(fc1)
+    fc3 = tf.layers.Dense(16, activation='relu')(fc2)
 
-    out = layers.Dense(1, activation='linear')(fc3)
+    out =tf.layers.Dense(1, activation='linear')(fc3)
 
-    model = models.Model(inputs=inp, outputs=out)
+    model = tf.models.Model(inputs=inp, outputs=out)
     model.compile(
         loss='mean_squared_error',
-        optimizer=optimizers.Adam(0.001),
+        optimizer = tf.optimizers.Adam(0.001),
         metrics=['accuracy'],
     )
     return model
