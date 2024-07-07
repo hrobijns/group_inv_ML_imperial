@@ -39,7 +39,7 @@ Based on the same paper as the pre-project work [(1)](https://www.sciencedirect.
 Does there exist a metric on the 3-dimensional torus T<sup>3</sup> such that every harmonic 1-form has a vanishing zero?
 
 ##### simple_PINN.py:
-- implementing a simple physics informed neural network, as in [this paper (3)](https://arxiv.org/abs/1711.10561), as an eductional exercise (in progress).
+- implementing a simple physics informed neural network, as in [this paper (3)](https://arxiv.org/abs/1711.10561), as an eductional exercise.
 
 ## References:
 (1) [Aggarwal et al., 2023, *Machine learning Sasakian and G2 topology on contact Calabi-Yau 7-manifolds*](https://www.sciencedirect.com/science/article/pii/S0370269324000753?via%3Dihub) <br/>
