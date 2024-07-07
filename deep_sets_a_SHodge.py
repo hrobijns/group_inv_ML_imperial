@@ -1,8 +1,8 @@
 from SHodge_learn import data_wrangle_S
 from SHodge_learn import daattavya_accuracy
 from SHodge_learn import train_network
-from deep_sets(b)_SHodge import permute_vector
-from deep_sets(b)_SHodge import permutation_invariance_confirmation
+from deep_sets_b_SHodge import permute_vector
+from deep_sets_b_SHodge import permutation_invariance_confirmation
 
 import numpy as np
 import requests

@@ -1,8 +1,8 @@
 # import necessary libraries but also useful previously defined functions
 from CNI_learn import data_wrangle_CNI
 from CNI_learn import classification_accuracy
-from deep_sets_SHodge import permute_vector
-from deep_sets_SHodge import permutation_invariance_confirmation
+from deep_sets_b_SHodge import permute_vector
+from deep_sets_b_SHodge import permutation_invariance_confirmation
 from SHodge_learn import train_network
 
 import requests
