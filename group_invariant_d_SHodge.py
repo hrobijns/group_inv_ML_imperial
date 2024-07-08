@@ -15,12 +15,13 @@ import itertools
 # defining a new accuracy which is group invariant: 
 
 def group_invariant_accuracy(training_outputs, test_inputs, test_outputs, model):
-    bound = 0.05 * (np.max(training_outputs) - np.min(training_outputs))  # define the bound as in Daattavya's paper
-    all_permutations = list(itertools.permutations(test_inputs))  # generate all permutations of the input vector
-    predictions = [model.predict(np.array(perm).reshape(1, -1))[0] for perm in all_permutations]  # predict for each permutation and reshape to match model input
-    averaged_prediction = np.mean(predictions)
-    accuracy = np.mean(np.where(np.abs(averaged_prediction - test_outputs) < bound, 1, 0))
-    return accuracy
+    bound = 0.05 * (np.max(training_outputs) - np.min(training_outputs))  # Define the bound as in Daattavya's paper
+    num_samples = test_inputs.shape[0]
+    predictions = np.zeros(test_inputs.shape[0])
+    for i in range(num_samples):
+        permuted_inputs = np.array(list(itertools.permutations(test_inputs[i]))).reshape(120, -1)
+        predictions[i] = np.mean(model.predict(permuted_inputs))
+    return np.mean(np.where(np.abs(predictions - test_outputs.flatten()) < bound, 1, 0))
 
 ################################################################################
 # running the program: 
