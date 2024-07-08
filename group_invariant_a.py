@@ -1,8 +1,8 @@
 from vanilla_SHodge import data_wrangle_S
 from vanilla_SHodge import daattavya_accuracy
 from vanilla_SHodge import train_network
-from group_invariant_b_SHodge import permute_vector
-from group_invariant_b_SHodge import permutation_invariance_confirmation
+from group_invariant_b import permute_vector
+from group_invariant_b import permutation_invariance_confirmation
 
 import numpy as np
 import tensorflow as tf
