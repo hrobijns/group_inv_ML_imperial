@@ -1,7 +1,7 @@
 # import necessary libraries but also useful previously defined functions 
-from SHodge_learn import data_wrangle_S
-from SHodge_learn import daattavya_accuracy
-from SHodge_learn import train_network
+from vanilla_SHodge import data_wrangle_S
+from vanilla_SHodge import daattavya_accuracy
+from vanilla_SHodge import train_network
 
 import requests
 import numpy as np
@@ -28,7 +28,7 @@ def permutation_invariance_confirmation(model, test_inputs):
 # deep sets architecture: essentially training individual NNs in parallel for all the elements of the group
 # in parallel, then aggregating, then training further (as in the first part of section 3.1 of the paper).
 
-def get_deep_sets_network():
+def get_network():
     inp = tf.keras.layers.Input(shape=(5,))
     
     # split the input vector into 5 elements
@@ -72,6 +72,6 @@ def get_deep_sets_network():
 if __name__ == '__main__':
     X,y = data_wrangle_S()
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.5) # split data into training and testing
-    model, history = train_network(X_train, y_train, X_test, y_test, get_deep_sets_network()) # train network on chosen data
+    model, history = train_network(X_train, y_train, X_test, y_test, get_network()) # train network on chosen data
     print('Accuracy: ' + str(round(daattavya_accuracy(y_train, X_test, y_test, model)*100, 1)) + '%')
     permutation_invariance_confirmation(model, X_test)

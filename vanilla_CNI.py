@@ -1,5 +1,5 @@
 # import necessary libraries but also useful previously defined functions
-from SHodge_learn import train_network
+from vanilla_SHodge import train_network
 
 import requests
 import numpy as np
