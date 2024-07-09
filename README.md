@@ -47,6 +47,9 @@ Does there exist a metric on the 3-dimensional torus T<sup>3</sup> such that eve
 ##### simple_PINN.py:
 - implementing a simple physics informed neural network, as in [this paper (4)](https://arxiv.org/abs/1711.10561), as an eductional exercise.
 
+##### periodic_PINN.py:
+- a small adaption of simple_PINN where we enforced periodicity into the solution by mapping the input layers to trig functions.
+
 ## References:
 (1) [Aggarwal et al., 2023, *Machine learning Sasakian and G2 topology on contact Calabi-Yau 7-manifolds*](https://www.sciencedirect.com/science/article/pii/S0370269324000753?via%3Dihub) <br/>
 (2) [Zaheer et al., 2017, *Deep Sets*](https://arxiv.org/abs/1703.06114) <br/>
