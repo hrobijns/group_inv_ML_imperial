@@ -112,4 +112,3 @@ if __name__ == '__main__':
   x_boundary_tf, u_boundary_tf = generate_boundary_points()
   trained_model = train_network(x_colocation_tf, x_boundary_tf, u_boundary_tf, PINN())
   plot_PINN_prediction(0, 5, trained_model)
-
