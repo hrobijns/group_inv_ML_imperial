@@ -39,7 +39,7 @@ We also considered [this paper on fundamental domain projections (3)](https://op
 
 Overall, as perhaps expected, accuracy was not seen to improve by incorporating the group invariant methods (IN PROGRESS).
 
-More information can be found in all of the methods and their implementation in the project write-up. 
+More information can be found in all of the methods and their implementation in the project write-up (IN PROGRESS). 
 
 (1) [Aggarwal et al., 2023, *Machine learning Sasakian and G2 topology on contact Calabi-Yau 7-manifolds*](https://www.sciencedirect.com/science/article/pii/S0370269324000753?via%3Dihub) <br/>
 (2) [Zaheer et al., 2017, *Deep Sets*](https://arxiv.org/abs/1703.06114) <br/>
