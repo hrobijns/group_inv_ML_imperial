@@ -1,5 +1,5 @@
 # Geometric analysis with machine learning: summer project with Imperial College, London
-Summer project in collaboration with Meg Dearden-Hellawell, supervised by Daniel Platt (Imperial College, London, maths department) and Daattavya Argarwal (Cambridge University, computer science department).
+Summer project in collaboration with Meg Dearden-Hellawell, supervised by Daniel Platt (Imperial College, London, maths department) and Daattavya Argarwal (Cambridge University, computer science department). This repository concerns the first of two projects, focusing on group invariant machine learning.
 
 ## Packages and requirements:
 - Python
@@ -16,7 +16,7 @@ Summer project in collaboration with Meg Dearden-Hellawell, supervised by Daniel
 - experimented with different architecture to improve accuracy.
 - mainly an educational/warm-up exercise to introduce NNs in the context of algebraic topology.
 
-### Project 1: Other ML techniques, incl. group invariant ML
+### Project: Other ML techniques, incl. group invariant ML
 Based on the same paper as the pre-project work [(1)](https://www.sciencedirect.com/science/article/pii/S0370269324000753?via%3Dihub), we attempted to improve the results, especially of the CN invariant which was predicted little better than random guessing. This was done through trying different ML techniques, including group invariant ML - since permuting the input weights should not change the outputs, we were interested to see if enforcing the NN to be invariant to permutation of the input vectors could increase accuracy.
 
 ##### vanilla_CNI.py:
@@ -41,17 +41,6 @@ Overall, as perhaps expected, accuracy was not seen to improve by incorporating 
 
 More information can be found in all of the methods and their implementation in the project write-up. 
 
-### Project 2: Harmonic 1-forms on T<sup>3</sup>
-Does there exist a metric on the 3-dimensional torus T<sup>3</sup> such that every harmonic 1-form has a vanishing zero?
-
-##### simple_PINN.py:
-- implementing a simple physics informed neural network, as in [this paper (4)](https://arxiv.org/abs/1711.10561), as an eductional exercise.
-
-##### periodic_PINN.py:
-- a small adaption of simple_PINN where we enforced periodicity into the solution by mapping the input layers to trigonometric functions.
-
-## References:
 (1) [Aggarwal et al., 2023, *Machine learning Sasakian and G2 topology on contact Calabi-Yau 7-manifolds*](https://www.sciencedirect.com/science/article/pii/S0370269324000753?via%3Dihub) <br/>
 (2) [Zaheer et al., 2017, *Deep Sets*](https://arxiv.org/abs/1703.06114) <br/>
-(3) [Platt et al., 2022](https://openreview.net/pdf?id=RLkbkAgNA58) <br/>
-(4) [Raissi et al., 2017, *Physics Informed Deep Learning (Part I): Data-driven Solutions of Nonlinear Partial Differential Equations*](https://arxiv.org/abs/1711.10561)
+(3) [Platt et al., 2022](https://openreview.net/pdf?id=RLkbkAgNA58) 
