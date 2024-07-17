@@ -1,13 +1,12 @@
 # Geometric analysis with machine learning: summer project with Imperial College, London
-Summer project in collaboration with Meg Dearden-Hellawell, supervised by Daniel Platt (Imperial College, London, maths department) and Daattavya Argarwal (Cambridge University, computer science department). This repository concerns the first of two projects, focusing on group invariant machine learning.
-
-## Packages and requirements:
-- Python
-- TensorFlow
+Summer project in collaboration with Meg Dearden-Hellawell, supervised by Daniel Platt (Imperial College, London, maths department) and Daattavya Argarwal (Cambridge University, computer science department). This repository concerns the first of two projects, focusing on group invariant machine learning, carried out on Python with TensorFlow.
 
 ## Contents:
 ##### requirements.txt:
 - text file containing required software to run files in this repository.
+
+##### report.pdf:
+- a short and simple write-up of the project.
 
 ### Pre-project work:
 
