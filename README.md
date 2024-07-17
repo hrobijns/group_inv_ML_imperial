@@ -1,13 +1,12 @@
 # Geometric analysis with machine learning: summer project with Imperial College, London
-Summer project in collaboration with Meg Dearden-Hellawell, supervised by Daniel Platt (Imperial College, London, maths department) and Daattavya Argarwal (Cambridge University, computer science department). This repository concerns the first of two projects, focusing on group invariant machine learning.
-
-## Packages and requirements:
-- Python
-- TensorFlow
+Summer project in collaboration with Meg Dearden-Hellawell, supervised by Daniel Platt (Imperial College, London, maths department) and Daattavya Argarwal (Cambridge University, computer science department). This repository concerns the first of two projects, focusing on group invariant machine learning, carried out on Python with TensorFlow.
 
 ## Contents:
 ##### requirements.txt:
 - text file containing required software to run files in this repository.
+
+##### report.pdf:
+- a short and simple write-up of the project IN PROGRESS.
 
 ### Pre-project work:
 
@@ -37,9 +36,9 @@ The final two methods derive from the definition of group invariance.
 
 We also considered [this paper on fundamental domain projections (3)](https://openreview.net/pdf?id=RLkbkAgNA58), however it proved futile for our problem since our data was already in the fundamental domain. 
 
-Overall, as perhaps expected, accuracy was not seen to improve by incorporating the group invariant methods (IN PROGRESS).
+Overall, as perhaps expected, accuracy was not seen to improve by incorporating the group invariant methods.
 
-More information can be found in all of the methods and their implementation in the project write-up (IN PROGRESS). 
+More information can be found in all of the methods and their implementation in the project write-up (report.pdf) IN PROGRESS. 
 
 (1) [Aggarwal et al., 2023, *Machine learning Sasakian and G2 topology on contact Calabi-Yau 7-manifolds*](https://www.sciencedirect.com/science/article/pii/S0370269324000753?via%3Dihub) <br/>
 (2) [Zaheer et al., 2017, *Deep Sets*](https://arxiv.org/abs/1703.06114) <br/>
